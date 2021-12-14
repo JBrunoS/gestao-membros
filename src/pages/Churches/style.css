@@ -1,0 +1,106 @@
+.container-churches {
+    margin: 10% auto;
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.buttons-churches {
+    width: 80%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    margin: 0 auto 30px;
+}
+
+.buttons-churches button {
+    background-color: #337ED4;
+    border-width: 0;
+    color: #FFF;
+    font: 400 18px Roboto, sans-serif;
+    padding: 10px;
+    border-radius: 6px;
+}
+
+/**
+* ----------------------------------------------
+* Demo styles
+* ----------------------------------------------
+**/
+.accordion {
+    /* border: 1px solid rgba(0, 0, 0, 0.1); */
+    width: 80%;
+    
+}
+
+.accordion__item + .accordion__item {
+    border-top: 1px solid rgba(165, 163, 163, 0.1);
+}
+
+.accordion__button {
+    background-color: #FFF;
+    color: #444;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    text-align: left;
+    border: none;
+    border-radius: 6px;
+}
+
+.accordion__button:hover {
+    background-color: #1B8D19;
+    color: #FFF;
+}
+
+.accordion__button:before {
+    display: inline-block;
+    content: '';
+    height: 10px;
+    width: 10px;
+    margin-right: 12px;
+    border-bottom: 2px solid currentColor;
+    border-right: 2px solid currentColor;
+    transform: rotate(-45deg);
+}
+
+.accordion__button[aria-expanded='true']::before,
+.accordion__button[aria-selected='true']::before {
+    transform: rotate(45deg);
+}
+
+[hidden] {
+    display: none;
+}
+
+.accordion__panel {
+    position: relative;
+    padding: 20px;
+    animation: fadein 0.35s ease-in;
+    background-color: #ddd;
+    border-radius: 6px;
+}
+
+.accordion__panel a {
+    position: absolute;
+    right: 12px;
+
+}
+
+/* -------------------------------------------------- */
+/* ---------------- Animation part ------------------ */
+/* -------------------------------------------------- */
+
+@keyframes fadein {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
