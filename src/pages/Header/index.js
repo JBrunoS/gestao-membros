@@ -15,7 +15,7 @@ export default function Header(){
             <div>
                 <Link to='/users' >Usuários</Link>
                 <Link to='/churches' >Congregações</Link>
-                <a href='#' >Obreiros</a>
+                <a href='#'  >Obreiros</a>
                 <Link to='/birthdays' >Aniversariantes</Link>
                 <Link to='/cards' >Gerar Carteira</Link>
             

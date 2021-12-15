@@ -18,7 +18,7 @@ export default function Users(){
                 </div>
                 <div>
                     <a href="#"><FaPrint size={30} color='#000' /></a>
-                    <a href="#"><FaUserPlus size={30} color='#1B8D19' /></a>
+                    <a href="http://localhost:3001/" target='_blank' rel="noreferrer"><FaUserPlus size={30} color='#1B8D19' /></a>
                 </div>
             </div>
 
