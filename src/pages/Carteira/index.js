@@ -1,6 +1,7 @@
 import React from "react";
 import user from '../../assets/user.png'
 import { FaChevronRight, FaTimes } from 'react-icons/fa'
+import InputMask from "react-input-mask";
 
 import './style.css'
 
@@ -13,7 +14,7 @@ export default function Carteira() {
         <div className="container-card">
             <div className="header">
                 <div>
-                    <input id='cpf' />
+                    <InputMask mask='999.999.999-99' placeholder="CPF"  />
                     <button> <FaChevronRight size={20} color='#FFF' /> </button>
                 </div>
 

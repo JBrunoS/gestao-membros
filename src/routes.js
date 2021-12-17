@@ -2,7 +2,7 @@ import React from "react";
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 
 import Home from "./pages/Home";
-import Users from "./pages/Users"
+import Users from "./pages/Users/UsersHome"
 import Header from "./pages/Header";
 import Churches from "./pages/Churches";
 import Birthdays from "./pages/Birthdays";

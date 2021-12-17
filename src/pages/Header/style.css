@@ -6,27 +6,31 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: space-between ;
+    justify-content: space-between;
     background-color: #337ED4;
     position: fixed;
     top: 0px;
 }
 
-.container a {
+.container div:first-child {
     width: 10%;
     height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
 }
+/* 
+.container div:first-child {
+    width: 10%;
+    
+} */
 
-.container div {
-    width: 80%;
+.container div + div {
+    width: 78%;
     height: 100%;
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    padding-left: 30px;
 }
 
 .container div a {
@@ -34,6 +38,13 @@
     margin-right: 20px;
     text-decoration: none;
     color: #fff;
+}
+
+.container div:last-child {
+    width: 10%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 /* .container div:last-child {

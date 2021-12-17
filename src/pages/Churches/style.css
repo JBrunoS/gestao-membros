@@ -24,6 +24,7 @@
     font: 400 18px Roboto, sans-serif;
     padding: 10px;
     border-radius: 6px;
+    cursor: pointer;
 }
 
 /**

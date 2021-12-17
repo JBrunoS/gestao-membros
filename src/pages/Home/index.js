@@ -10,7 +10,7 @@ export default function Home(){
                 <span>500</span>
             </div>
             <div>
-                <span>Congegações</span>
+                <span>Congregações</span>
                 <span>18</span>
             </div>
             <div>
