@@ -74,6 +74,12 @@
     justify-content: space-between;
 }
 
+.button-print {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
 .box-body {
     width: 100%;
     display: flex;

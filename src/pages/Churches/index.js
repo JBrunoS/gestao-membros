@@ -15,7 +15,7 @@ export default function Churches(){
             <div className="buttons-churches">
                 <button>Buscar Todas</button>
                 <button>Buscar Todas e Membros</button>
-                <Link to='/users'><FaUserPlus size={30} color='#1B8D19' /> </Link>
+                <Link to=''><FaUserPlus size={30} color='#1B8D19' /> </Link>
             </div>
 
             <Accordion allowZeroExpanded >

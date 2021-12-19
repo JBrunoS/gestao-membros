@@ -1,5 +1,4 @@
 import React from "react";
-import user from '../../assets/user.png'
 import { FaChevronRight, FaTimes } from 'react-icons/fa'
 import InputMask from "react-input-mask";
 
@@ -109,8 +108,8 @@ export default function Carteira() {
 
                         <div>
                             <div>
-                                <label htmlFor="batismo">Batismo</label>
-                                <input id="batismo" disabled />
+                                <label htmlFor="batismo-print">Batismo</label>
+                                <input id="batismo-print" disabled />
                             </div>
                             <div>
                                 <label htmlFor="numero-membro">Nº Membro</label>
@@ -126,19 +125,15 @@ export default function Carteira() {
                             <label htmlFor="filiacao">Filiação</label>
                             <input id="filiacao" disabled />
                         </div>
-                        <div>
-                            <label htmlFor="assinatura">Assinatura</label>
-                            <input id="assinatura" disabled />
-                        </div>
 
                         <div className="documents-card">
                             <div>
-                                <label htmlFor="cpf">CPF</label>
-                                <input id="cpf" disabled />
+                                <label htmlFor="cpf-print">CPF</label>
+                                <input id="cpf-print" disabled />
                             </div>
                             <div>
-                                <label htmlFor="rg">RG</label>
-                                <input id="rg" disabled />
+                                <label htmlFor="rg-print">RG</label>
+                                <input id="rg-print" disabled />
                             </div>
                         </div>
                         <div className="documents-card-2">
@@ -147,15 +142,19 @@ export default function Carteira() {
                                 <input id="estado-civil" disabled />
                             </div>
                             <div>
-                                <label htmlFor="nascimento">Nasc.</label>
-                                <input id="nascimento" disabled />
+                                <label htmlFor="nascimento-print">Nasc.</label>
+                                <input id="nascimento-print" disabled />
                             </div>
+                        </div>
+                        <div>
+                            <label htmlFor="assinatura">Assinatura</label>
+                            <input id="assinatura" disabled />
                         </div>
 
                         <div className="footer-card">
                             <img src={user} alt="user" />
                             <div>
-                                <input id="batismo" disabled />
+                                <input id="assinatura" disabled />
                                 <h2>Vicente Viana Barreto - Pastor Presidente</h2>
                                 <span>CGADB nº034673 - CONADEC nº 461</span>
                             </div>

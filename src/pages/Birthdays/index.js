@@ -27,7 +27,7 @@ export default function Birthdays() {
                 </div>
 
                 <div>
-                    <a href="#"> <FaPrint size={25} color="#000" /> </a>
+                    <span className="button-print" > <FaPrint size={25} color="#000" /> </span>
                 </div>
             </div>
 

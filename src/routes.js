@@ -7,6 +7,7 @@ import Header from "./pages/Header";
 import Churches from "./pages/Churches";
 import Birthdays from "./pages/Birthdays";
 import Carteira from "./pages/Carteira";
+import PrintCard from "./pages/PrintCard";
 
 export default function Rotas(){
     return(
@@ -18,6 +19,8 @@ export default function Rotas(){
                 <Route path='/churches' exact element={<Churches />} />
                 <Route path='/birthdays' exact element={<Birthdays />} />
                 <Route path='/cards' exact element={<Carteira />} />
+                <Route path='/printCard' exact element={<PrintCard />} />
+                
             </Routes>
         </BrowserRouter>
     )

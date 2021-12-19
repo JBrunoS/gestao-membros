@@ -15,6 +15,7 @@
     "react-modal": "^3.14.4",
     "react-router-dom": "^6.1.1",
     "react-scripts": "4.0.3",
+    "react-to-print": "^2.14.2",
     "web-vitals": "^1.1.2"
   },
   "scripts": {

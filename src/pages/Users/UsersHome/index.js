@@ -1,15 +1,19 @@
-import React, { useState } from "react";
-import { FaSearch, FaPrint, FaUserPlus, FaUserAlt, FaEdit, FaTrash, FaTimes } from 'react-icons/fa'
+import React, { useState, useRef, useCallback } from "react";
+import { FaSearch, FaPrint, FaUserPlus, FaEdit, FaTrash, FaTimes } from 'react-icons/fa'
 import InputMask from 'react-input-mask'
 import Modal from 'react-modal'
+import { useReactToPrint } from 'react-to-print'
+
 
 import './style.css'
 
 import api from '../../../services/api'
-import UserLogin from '../../../assets/user.png'
+
+import UsersPrint from "../UsersPrint";
 
 
 export default function Users() {
+
     const [cpf, setCpf] = useState('')
     const [incidents, setIncidents] = useState([])
 
@@ -31,85 +35,25 @@ export default function Users() {
     const [funcao, setFuncao] = useState('');
     const [estado_civil, setEstado_civil] = useState('')
     const [imagem, setImagem] = useState('')
+    const [id, setId] = useState('')
 
     const [isOpen, setIsOpen] = useState(false);
 
-    async function handleSubmit(e) {
-        e.preventDefault();
-
-        const dataImage = new FormData();
-
-        dataImage.append('file', imagem)
-
-        const data = {
-            nome,
-            cpf,
-            rg,
-            filiacao,
-            data_nascimento,
-            data_batismo,
-            email,
-            telefone,
-            endereco,
-            numero,
-            bairro,
-            cidade,
-            uf,
-            congregacao,
-            funcao,
-            estado_civil,
-        }
-
-        try {
-            if (nome === '' || cpf === '' || rg === '' || filiacao === '' ||
-                data_nascimento === '' || data_batismo === '' || email === '' ||
-                telefone === '' || endereco === '' || numero === '' || bairro === '' ||
-                cidade === '' || uf === '' || congregacao === '' || funcao === '' || imagem === '') {
-
-                alert('Todos os campos são necessários');
-
-            } else {
-
-                await api.post('user', data)
-                    .then(response => {
-                        console.log(response.status)
-                        if (response.status === 204) {
-
-                            api.get(`user/specific/${cpf}`)
-                                .then(response => {
-                                    api.post(`user/${response.data.id}`, dataImage)
-                                })
-
-                            alert("Cadastro Realizado com sucesso!");
-
-
-                        } else {
-
-                            alert('Já existe alguém cadastrado com esse CPF e/ou RG');
-                        }
-                    })
-            }
-            setNome('')
-            setCpfNew('')
-            setRg('')
-            setFiliacao('')
-            setData_nascimento('')
-            setData_batismo('')
-            setEmail('')
-            setTelefone('')
-            setEndereco('')
-            setNumero('')
-            setBairro('')
-            setCidade('')
-            setCongregacao('')
-            setFuncao('')
-            setImagem('')
-            setEstado_civil('')
-
-        } catch (error) {
-            console.log(error.response)
-        }
-    }
+    //Início configuração para o print da tela
+    const componentRef = useRef();
+  
+    const reactToPrintContent = useCallback(() => {
+      return componentRef.current;
+    }, []);
+  
+    const handlePrint = useReactToPrint({
+      content: reactToPrintContent,
+      documentTitle: "AwesomeFileName",
+      removeAfterPrint: true,
+    });
+    
+  
+    //Fim da configuração do Print da tela
 
     async function handleSearch() {
         if (cpf === '') {
@@ -140,17 +84,18 @@ export default function Users() {
 
     async function handleDelete(id, key) {
 
-        
+
         try {
             await api.delete(`user/${id}/${key}`)
-            .then(response =>{
-                console.log(response.data)
-                setIncidents(incidents.filter(incident => incident.id !== id))
-            })
+                .then(response => {
+                    setIncidents(incidents.filter(incident => incident.id !== id))
+                })
 
         } catch (error) {
             console.log(error)
         }
+
+        handleSearchAll();
 
     }
 
@@ -159,14 +104,11 @@ export default function Users() {
     }
 
     async function openModal(id) {
-        console.log(process.env.PATH)
         setIsOpen(!isOpen)
 
         try {
             await api.get(`user/id/${id}`)
                 .then(response => {
-                    console.log(response.data)
-
                     setNome(response.data.nome)
                     setCpfNew(response.data.cpf)
                     setRg(response.data.rg)
@@ -183,15 +125,60 @@ export default function Users() {
                     setFuncao(response.data.funcao)
                     setImagem(response.data.key)
                     setEstado_civil(response.data.estado_civil)
+                    setId(response.data.id)
+                })
+        } catch (error) {
+            console.log(error.response)
+        }
+    }
+
+    function handlePrintCard(cpf){
+        localStorage.setItem('userCPF', cpf);
+        window.open('/printCard')
+    }
+
+    async function handleEditUser(id, key) {
+        console.log(key, id)
+
+        const data = {
+            nome,
+            cpfNew,
+            rg,
+            filiacao,
+            data_nascimento,
+            data_batismo,
+            email,
+            telefone,
+            endereco,
+            numero,
+            bairro,
+            cidade,
+            uf,
+            congregacao,
+            funcao,
+            estado_civil,
+        }
+
+        try {
+            await api.put(`user/${id}/${key}`, data)
+                .then(response => {
+                    console.log(response.data)
                 })
         } catch (error) {
             console.log(error.response)
         }
 
+        closeModal();
+        handleSearchAll();
     }
+
     return (
 
         <div className="container-users">
+            <div style={{ display: 'none' }}>
+                <UsersPrint props={incidents} ref={componentRef} />
+                
+            </div>
             <Modal
                 isOpen={isOpen}
                 onRequestClose={closeModal}
@@ -199,13 +186,14 @@ export default function Users() {
                 contentLabel='Editar Usuário'
             >
                 <div className='container-cadastro' >
-                    <form onSubmit={handleSubmit}>
+                    <form>
                         <div className="section-head">
                             <div className='container-box-preview'>
-                                {<img></img> || <img></img>}
                                 <img src={process.env.REACT_APP_API_URL + '/files/' + imagem} alt='imagem' />
-                                <label htmlFor='file' >Escolher foto</label>
+
+                                <label htmlFor='file'  >Escolher foto</label>
                                 <input
+                                    disabled
                                     type='file'
                                     id='file'
                                     name='file'
@@ -262,6 +250,7 @@ export default function Users() {
                                         onChange={e => setData_nascimento(e.target.value)}
                                         required
                                     />
+
                                     <input
                                         id='batismo'
                                         type='date'
@@ -404,7 +393,7 @@ export default function Users() {
 
                         <div className="buttons">
                             <button type='button' onClick={closeModal} >cancelar</button>
-                            <button type='button'>Salvar</button>
+                            <button type='button' onClick={() => handleEditUser(id, imagem)} >Salvar</button>
                             <button type='button' onClick={closeModal}><FaTimes size={20} color='#c4c4c4' /></button>
                         </div>
 
@@ -422,7 +411,7 @@ export default function Users() {
                     <button type='button' onClick={handleSearchAll} >Buscar Todos</button>
                 </div>
                 <div>
-                    <a href="#"><FaPrint size={30} color='#000' /></a>
+                    <button className="button-print" onClick={handlePrint} > <FaPrint size={30} color='#000' /> </button>
                     <a href="http://localhost:3000/" target='_blank' rel="noreferrer"><FaUserPlus size={30} color='#1B8D19' /></a>
                 </div>
             </div>
@@ -447,9 +436,9 @@ export default function Users() {
                                 <span>{incidents.email}</span>
                             </div>
                             <div>
-                                <a><FaPrint size={20} color='#000' /></a>
-                                <a onClick={() => openModal(incidents.id)}><FaEdit size={20} color='#E78124' /></a>
-                                <a onClick={() => handleDelete(incidents.id, incidents.key) } ><FaTrash size={20} color='#E70404' /></a>
+                                <button className="button-print" onClick={() => handlePrintCard(incidents.cpf) } ><FaPrint size={20} color='#000' /></button>
+                                <button className="button-print" onClick={() => openModal(incidents.id)}><FaEdit size={20} color='#E78124' /></button>
+                                <button className="button-print" onClick={() => handleDelete(incidents.id, incidents.key)} ><FaTrash size={20} color='#E70404' /></button>
                             </div>
                         </div>
                     ))
