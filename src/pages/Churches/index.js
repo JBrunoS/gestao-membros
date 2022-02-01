@@ -1,45 +1,83 @@
-import React from "react";
-import { Accordion,
+import React, { useRef, useState, useCallback, useEffect } from "react";
+import {
+    Accordion,
     AccordionItem,
     AccordionItemHeading,
     AccordionItemButton,
-    AccordionItemPanel, } from 'react-accessible-accordion'
+    AccordionItemPanel,
+} from 'react-accessible-accordion'
 import { Link } from "react-router-dom";
-import { FaUserPlus, FaPrint } from 'react-icons/fa'
+import { FaPrint } from 'react-icons/fa'
+import { useReactToPrint } from 'react-to-print'
 
 import './style.css'
+import api from '../../services/api'
+import UsersPrint from "../Users/UsersPrint";
 
-export default function Churches(){
-    return(
+export default function Churches() {
+    const [incidents, setIncidents] = useState([])
+    const [churches, setChurches] = useState([])
+    const [congregacao, setCongregacao] = useState('')
+    const componentRef = useRef();
+
+    const reactToPrintContent = useCallback(() => {
+        return componentRef.current;
+    }, []);
+
+    const handlePrint = useReactToPrint({
+        content: reactToPrintContent,
+        documentTitle: "Listagem - Congregação",
+        removeAfterPrint: true,
+    });
+
+    async function handleCount() {
+        await api.get('count/churches')
+            .then(response => {
+                setChurches(response.data)
+            })
+    }
+
+
+    async function HandleIncidents(id) {
+        api.get(`churches/${id}`)
+            .then(response => {
+                setIncidents(response.data)
+                setCongregacao(id)
+            })
+    }
+
+    useEffect(() => {
+        handleCount();
+    }, [])
+
+    return (
         <div className="container-churches">
-            <div className="buttons-churches">
-                <button>Buscar Todas</button>
-                <button>Buscar Todas e Membros</button>
-                <Link to=''><FaUserPlus size={30} color='#1B8D19' /> </Link>
+            <div style={{ display: 'none' }}>
+                <UsersPrint object={incidents} congregacao={congregacao} ref={componentRef} />
             </div>
 
             <Accordion allowZeroExpanded >
-                <AccordionItem>
-                    <AccordionItemHeading>
-                        <AccordionItemButton>Itapebussu</AccordionItemButton>
-                    </AccordionItemHeading>
-                    <AccordionItemPanel>
-                        <Link to='/'><FaPrint size={20} color='#000' /></Link>
-                        <ul>
-                            <li>Arroz Muito melhor cozido qufm,dnf nfhfdhhsdf hfhdsfdsh hfgdsgfsdgf hfghsdgfsgdff fhsdfhdsfhs hfhsfh</li>
-                            <li>Arroz Muito melhor cozido qufm,dnf nfhfdhhsdf hfhdsfdsh hfgdsgfsdgf hfghsdgfsgdff fhsdfhdsfhs hfhsfh</li>
-                            <li>Arroz Muito melhor cozido qufm,dnf nfhfdhhsdf hfhdsfdsh hfgdsgfsdgf hfghsdgfsgdff fhsdfhdsfhs hfhsfh</li>
-                            <li>Arroz Muito melhor cozido qufm,dnf nfhfdhhsdf hfhdsfdsh hfgdsgfsdgf hfghsdgfsgdff fhsdfhdsfhs hfhsfh</li>
-                            <li>Arroz Muito melhor cozido qufm,dnf nfhfdhhsdf hfhdsfdsh hfgdsgfsdgf hfghsdgfsgdff fhsdfhdsfhs hfhsfh</li>
-                            <li>Arroz Muito melhor cozido qufm,dnf nfhfdhhsdf hfhdsfdsh hfgdsgfsdgf hfghsdgfsgdff fhsdfhdsfhs hfhsfh</li>
-                            <li>Arroz Muito melhor cozido qufm,dnf nfhfdhhsdf hfhdsfdsh hfgdsgfsdgf hfghsdgfsgdff fhsdfhdsfhs hfhsfh</li>
-                            <li>Arroz Muito melhor cozido qufm,dnf nfhfdhhsdf hfhdsfdsh hfgdsgfsdgf hfghsdgfsgdff fhsdfhdsfhs hfhsfh</li>
-                            <li>Arroz Muito melhor cozido qufm,dnf nfhfdhhsdf hfhdsfdsh hfgdsgfsdgf hfghsdgfsgdff fhsdfhdsfhs hfhsfh</li>
-                            <li>Arroz Muito melhor cozido qufm,dnf nfhfdhhsdf hfhdsfdsh hfgdsgfsdgf hfghsdgfsgdff fhsdfhdsfhs hfhsfh</li>
-                        </ul>
-                    </AccordionItemPanel>
-                </AccordionItem>
-               
+
+                {churches.map((churches, index) => (
+                    <AccordionItem onClickCapture={() => HandleIncidents(churches.congregacao)} key={index} >
+                        <AccordionItemHeading >
+                            <AccordionItemButton>{churches.congregacao}</AccordionItemButton>
+                        </AccordionItemHeading>
+                        <AccordionItemPanel >
+                            <Link to=''><FaPrint onClick={handlePrint} size={20} color='#000' /></Link>
+                            {incidents.map(incidents => (
+                                <ul key={incidents.id}>
+                                    <li>
+                                        <a href={process.env.REACT_APP_API_URL + '/files/' + incidents.key} target='_blank' rel="noreferrer">
+                                            <img src={process.env.REACT_APP_API_URL + '/files/' + incidents.key} alt='imagem' />
+                                        </a>
+                                        <span>{incidents.nome + ' - ' + incidents.telefone}</span>
+                                    </li>
+                                </ul>
+                            ))}
+                        </AccordionItemPanel>
+                    </AccordionItem>
+                ))}
             </Accordion>
         </div>
     )

@@ -10,11 +10,17 @@
     justify-content: space-between;
 }
 
+.print div img {
+    width: 40px;
+
+}
+
 .print table {
     width: 100%;
     display: table;
     align-items: center;
     border: 1px solid #ddd;
+    margin-top: 20px;
 }
 
 .print th {
@@ -24,7 +30,7 @@
 }
 
 .print tr {
-    font-size: 8px;
+    font-size: 6px;
     margin: 2px;
     text-align: center;
     border: 1px solid #000;

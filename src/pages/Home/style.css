@@ -35,3 +35,21 @@
     color: #FFF;
     font: 700 25px Roboto, sans-serif;
 }
+
+@media only screen and (max-width:760px){
+    .container-home {
+        flex-direction: column;
+        margin-top: 80px;
+    }
+
+    .container-home div{
+        width: 90%;
+        height: 80px;
+        margin-bottom: 10px;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+}

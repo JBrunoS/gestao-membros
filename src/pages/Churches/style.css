@@ -1,31 +1,9 @@
 .container-churches {
     margin: 10% auto;
-    width: 80%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    width: 100%;
 }
 
-.buttons-churches {
-    width: 80%;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    padding: 10px;
-    margin: 0 auto 30px;
-}
 
-.buttons-churches button {
-    background-color: #337ED4;
-    border-width: 0;
-    color: #FFF;
-    font: 400 18px Roboto, sans-serif;
-    padding: 10px;
-    border-radius: 6px;
-    cursor: pointer;
-}
 
 /**
 * ----------------------------------------------
@@ -34,12 +12,17 @@
 **/
 .accordion {
     /* border: 1px solid rgba(0, 0, 0, 0.1); */
-    width: 80%;
-    
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-column-gap: 10px;
 }
 
 .accordion__item + .accordion__item {
     border-top: 1px solid rgba(165, 163, 163, 0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .accordion__button {
@@ -47,10 +30,11 @@
     color: #444;
     cursor: pointer;
     padding: 18px;
-    width: 100%;
+    width: 80%;
     text-align: left;
     border: none;
     border-radius: 6px;
+    margin: auto;
 }
 
 .accordion__button:hover {
@@ -84,12 +68,31 @@
     animation: fadein 0.35s ease-in;
     background-color: #ddd;
     border-radius: 6px;
+    padding-bottom: 7%;
+    width: 80%;
+    margin: auto;
 }
 
 .accordion__panel a {
     position: absolute;
     right: 12px;
 
+}
+.accordion__panel img {
+    width: 40px;
+    border-radius: 50%;
+}
+.accordion__panel ul li {
+    display: flex;
+    align-items: center;
+}
+.accordion__panel ul li a{
+    position: inherit;
+    margin-right: 15px;
+}
+
+.accordion__panel ul li span {
+    font: 500 15px Roboto, sans-serif;
 }
 
 /* -------------------------------------------------- */
@@ -103,5 +106,35 @@
 
     100% {
         opacity: 1;
+    }
+}
+
+@media only screen and (max-width: 768px){
+    .container-churches {
+        margin: 80px auto;
+        
+    }
+    .accordion {
+        /* border: 1px solid rgba(0, 0, 0, 0.1); */
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .accordion__panel img {
+        width: 30px;
+        border-radius: 50%;
+    }
+
+    .accordion__panel ul li span {
+        font: 400 12px Roboto, sans-serif;
+    }
+
+    .accordion__button {
+        width: 90%;
+    }
+    
+    .accordion__panel {
+        width: 90%;
     }
 }

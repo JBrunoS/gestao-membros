@@ -1,16 +1,10 @@
-.container-card {
-    margin-top: 10%;
+.container-card-all {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    margin: 10% auto;
 }
-
-/* .body {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-} */
 
 .header {
     display: flex;
@@ -30,7 +24,7 @@
 
 .header div input {
     width: 80%;
-    height: 30px;
+    height: 40px;
     font: 500 15px Roboto, sans-serif;
     padding-left: 10px;
     border-bottom-left-radius: 6px;
@@ -43,11 +37,12 @@
 
 .header div:first-child button {
     width: 20%;
-    height: 30px;
+    height: 40px;
     border: none;
     background-color: #337ed4;
     border-bottom-right-radius: 6px;
     border-top-right-radius: 6px;
+    cursor: pointer;
 }
 
 .header .content-incidents  {
@@ -61,7 +56,7 @@
 .header .content-incidents .incidents {
     width: 90%;
     height: auto;
-    background-color: azure;
+    background-color: #FFF;
     display: grid;
     grid-template-columns: repeat(5, 1fr);
     grid-row-gap: 5px;
@@ -69,7 +64,7 @@
     justify-content: flex-start;
     padding: 20px;
     border-radius: 6px;
-    
+    box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.15);
 }
 
 .header .content-incidents .incidents div {
@@ -86,6 +81,8 @@
 
 .header .content-incidents div:first-child div span {
     font-size: 15px;
+    
+    text-transform: capitalize;
 }
 .header .content-incidents div:first-child div button {
     background-color: transparent;
@@ -100,11 +97,12 @@
     align-items:  center;
     justify-content: space-around;
     margin: 10px;
+    
 }
 
 #buttons button {
     width: 30%;
-    height: 30px;
+    height: 40px;
     color: #FFF;
     background-color: #337ed4;
     border: none;
@@ -116,204 +114,73 @@
     background-color: #fd9745;
 }
 
-/* .container-card input {
-    height: 15px;
-    background-color: #FFF;
-    border: none;
-    margin-bottom: 5px;
-    border-radius: 4px;
-    color: #000;
-    padding-left: 2px;
-    font-size: 8px;
-    width: 76%;
-    text-transform: uppercase;
+@media only screen and (max-width: 768px){
+    .container-card-all {
+        margin: 80px auto;
+    }
+    
+    .header {
+        flex-direction: column;
+        width: 90%;
+        align-items: center;
+    }
+    
+    .header div {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        margin-right: 0;
+    }
+    
+    .header div input {
+        
+        height: 40px;
+        font: 500 20px Roboto, sans-serif;
+        padding-left: 15px;
+    }
+    
+    .header div:first-child button {
+        height: 40px;
+    }
+    
+    .header .content-incidents  {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        justify-content: center;
+    }
+    
+    .header .content-incidents .incidents {
+        width: 100%;
+        height: auto;
+        grid-template-columns: repeat(3, 1fr);
+        column-gap: 5px;
+        margin: 10px auto;
+        
+    }
+    
+    .header .content-incidents .incidents div {
+        width: 100%;
+        height: 40px;
+        padding: 0 5px 0;
+        
+    } 
+    
+    .header .content-incidents div:first-child div span {
+        font-size: 12px;
+    }
+    
+    .header .content-incidents #buttons {
+        width: 100%;
+        justify-content: space-between;
+        margin: 0;
+        
+    }
+    
+    #buttons button {
+        height: 40px;
+        font-size: 12px;
+        font-weight: 500;
+    }
 }
-
-.container-card label {
-    width: 20%;
-    font: 400 10px Roboto, sans-serif;
-    color: #FFF;
-}
-
-.container-card h2 {
-    font: 300 9px Roboto, sans-serif;
-    line-height: 8px;
-    color: #FFF;
-}
-
-.container-card span {
-    font: 400 7px Roboto, sans-serif;
-    line-height: 8px;
-    color: #FFF;
-}
-
-
-.content-card {
-    width: 250px;
-    height: 157px;
-    background-color: #1f427c;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin-left: 5px;
-}
-
-.container-card .content-card:last-child{
-    background: -webkit-linear-gradient(70deg, #1f427c 40%, #fd9745 40%);
-    background: -o-linear-gradient(70deg, #1f427c 40%, #fd9745 40%);
-    background: -moz-linear-gradient(70deg, #1f427c 40%, #fd9745 40%);
-    background: linear-gradient(70deg, #1f427c 40%, #fd9745 40%);
-}
-
-.header-card {
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-around;
-}
-
-.header-card div {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-}
-
-.header-card img {
-    width: 30px;
-    height: 30px;
-    margin-left: 4px;
-}
-
-.body-card {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-around;
-    margin-top: 5px;
-}
-
-.body-card div {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    width: 90%;
-    justify-content: space-between;
-}
-
-.body-card div+div+div input {
-    width: 65%;
-}
-
-.body-card div:last-child {
-    display: flex;
-    width: 90%;
-}
-
-.body-card div:last-child div {
-    width: 48%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
-.body-card div:last-child div:first-child input {
-    width: 60%;
-}
-
-.body-card div:last-child div:last-child input {
-    width: 48%;
-}
-
-.body-card div:last-child div:last-child label {
-    width: 50%;
-}
-
-.body-card-2 {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-    margin-top: 5px;
-}
-
-.body-card-2 div {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    width: 100%;
-    justify-content: space-between;
-}
-
-/* .body-card-2 div+div+div div {
-    width: 48%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-} */
-
-/* .documents-card div {
-    width: 48%;
-}
-
-.documents-card-2 {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
-.documents-card-2 div {
-    width: 48%;
-}
-
-.documents-card-2 div:first-child label {
-    width: 40%;
-}
-
-.documents-card-2 div:first-child input {
-    width: 60%;
-}
-
-.documents-card-2 div:last-child input {
-    width: 70%;
-}
-
-.body-card-2 div:last-child div {
-    display: flex;
-    flex-direction: column;
-}
-
-.footer-card {
-
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    align-items: baseline;
-    justify-content: space-between;
-    margin-top: 10px;
-}
-
-.footer-card div {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    width: 100%;
-
-}
-
-.footer-card img {
-    width: 20px;
-    height: 20px;
-    margin-left: 4px;
-}
-
-.footer-card div input {
-    width: 90%;
-}  */

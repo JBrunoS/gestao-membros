@@ -3,11 +3,11 @@
     flex-direction: column;
     width: 80%;
     height: 100%;
-    margin: 10% auto 0;
+    margin: 10% auto;
 }
 
 .modal {
-    
+
     margin: 20% 50% 0;
     width: 90%;
     height: auto;
@@ -20,7 +20,7 @@
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    
+
 }
 
 .box-users form {
@@ -30,17 +30,18 @@
 
 .box-users form input {
     width: 80%;
-    height: 30px;
+    height: 40px;
     border-width: 0;
     border-radius: 6px;
     border-bottom-right-radius: 0;
     border-top-right-radius: 0;
     padding-left: 20px;
+    font-size: 15px;
 }
 
 .box-users form button {
     width: 20%;
-    height: 30px;
+    height: 40px;
     border-width: 0;
     border-radius: 6px;
     border-bottom-left-radius: 0;
@@ -49,22 +50,23 @@
     cursor: pointer;
 }
 
-.box-users form + div{
+.box-users form+div {
     width: 65%;
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    
+
 }
 
-.box-users form + div button{
+.box-users form+div button {
     width: 180px;
-    height: 30px;
+    height: 40px;
     border-width: 0;
     border-radius: 6px;
     cursor: pointer;
     background-color: #337ED4;
     color: #FFF;
+    font-size: 16px;
 }
 
 .box-users div:last-child {
@@ -102,10 +104,12 @@
     justify-content: space-around;
     margin-bottom: 20px;
     padding: 0 20px 0;
+    box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.15);
 }
 
 .box-incidents img {
     max-width: 60px;
+    border-radius: 50%;
 }
 
 .box-incidents div {
@@ -114,7 +118,7 @@
     align-items: flex-start;
     justify-content: center;
     width: 30%;
-    
+
 }
 
 .box-incidents div span {
@@ -127,7 +131,7 @@
     text-transform: capitalize;
 }
 
-.box-incidents div + div span:last-child {
+.box-incidents div+div span:last-child {
     text-transform: lowercase;
 }
 
@@ -152,11 +156,11 @@
     margin: 10% auto 0;
     background-color: #FFF;
     border-radius: 8px;
-    padding: 10px 0 ;
+    padding: 10px 0;
     position: relative;
 }
 
-input[type='file']{
+input[type='file'] {
     display: none;
 }
 
@@ -172,16 +176,18 @@ input[type='file']{
     width: 90%;
 }
 
-.container-box-preview img{
+.container-box-preview img {
     width: 150px;
 }
-.container-box-preview label{
+
+.container-box-preview label {
     text-decoration: underline;
     color: #4473ed;
     margin: 20px 0 10px;
     cursor: pointer;
 }
-.container-box-preview span{
+
+.container-box-preview span {
     margin-right: 20%;
     font-size: small;
 }
@@ -191,7 +197,7 @@ input[type='file']{
     flex-direction: row;
 }
 
-.container-cadastro form .section-head  div {
+.container-cadastro form .section-head div {
     display: flex;
     flex-direction: column;
 }
@@ -204,21 +210,22 @@ input[type='file']{
     border: 1px solid #dddfe2;
     padding-bottom: 10px;
     padding-top: 10px;
-    
+
     width: 20%;
-    
+
 }
-.container-cadastro form .section-head  div div {
+
+.container-cadastro form .section-head div div {
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-around;
     width: 100%;
-    
+
     margin-bottom: 10px;
 }
 
-.container-cadastro form .section-head  div div input, select {
+.container-cadastro form .section-head div div input, select {
     width: 50%;
     height: 30px;
     border: 1px solid #dddfe2;
@@ -234,8 +241,9 @@ input[type='file']{
     align-items: center;
     justify-content: flex-end;
     width: 90%;
-    
+
 }
+
 .container-cadastro form button {
     width: 20%;
     height: 30px;
@@ -250,6 +258,7 @@ input[type='file']{
 .container-cadastro form button:first-child {
     background-color: #E78124;
 }
+
 .container-cadastro form button:last-child {
     background-color: transparent;
     width: auto;
@@ -265,4 +274,170 @@ input[type='file']{
 
 .container-cadastro form #uf, #numero {
     width: 15%;
+}
+
+@media only screen and (max-width:760px) {
+    
+    .modal {
+
+        margin: 80% 50% 0;
+        width: 100%;
+        height: 80%;
+        overflow: scroll;
+    }
+
+    .container-users {
+        margin-top: 80px;
+    }
+
+    .box-users {
+        flex-direction: column;
+    }
+
+    .box-users form {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+    .box-users form input {
+        height: 45px;
+    }
+
+    .box-users form button{
+        height: 45px;
+    }
+
+    .box-users form+div {
+        width: 100%;
+    }
+
+    .box-users form+div button {
+        width: 100%;
+        margin-bottom: 10px;
+        height: 40px;
+    }
+
+    .box-users div:last-child {
+        width: 100%;
+    }
+
+    
+    .box-incidents {
+        height: auto;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .box-incidents a {
+        margin: 10px auto 5px;
+    }
+    .box-incidents img {
+        max-width: 30px;
+    }
+    
+    .box-incidents div {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+    
+    }
+    
+    .box-incidents div span {
+        font-size: 10px;
+        font-weight: 400;
+    }
+    
+    .box-incidents div:last-child {
+        width: 100%;
+        margin: 10px auto 5px;
+    }
+    
+    .box-incidents div:last-child a {
+        cursor: pointer;
+    }
+
+
+    .container-cadastro {
+        width: 90%;
+        height: auto;
+    }
+    
+    .container-cadastro form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+    
+    .container-cadastro form div {
+        display: flex;
+        width: 90%;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .container-box-preview img {
+        width: 50px;
+        border-radius: 50%;
+        margin: 0 10px 0;
+    }
+    
+    .container-box-preview label {
+        font-size: 10px;
+    }
+
+    
+    .container-cadastro form .section-head {
+        flex-direction: column;
+        justify-content: center;
+    }
+    
+    
+    .container-cadastro form .section-head .container-box-preview {
+        flex-direction: row;
+        border: none;
+        width: 100%;
+    }
+    
+    .container-cadastro form .section-head div div {
+        flex-direction: column;
+        justify-content: center;
+    }
+    
+    .container-cadastro form .section-head div div input, select {
+        width: 90%;
+        height: 40px;
+        margin: 0 auto 3px;
+    }
+    
+    .container-cadastro form .buttons {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        width: 90%;
+    
+    }
+    
+    .container-cadastro form button {
+        width: 20%;
+        height: 30px;
+        background-color: #4473ed;
+        border: none;
+        border-radius: 6px;
+        color: #FFF;
+        margin-left: 20px;
+        cursor: pointer;
+    }
+    
+    .container-cadastro form button:last-child {
+        top: 2%;
+    }
+    
+    .container-cadastro form #cpf, #rg, #nascimento, #batismo, #telefone, #estado_civil {
+        width: 90%;
+    }
+    
+    .container-cadastro form #uf, #numero {
+        width: 90%;
+    }
 }

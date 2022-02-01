@@ -41,18 +41,18 @@ export default function Users() {
 
     //Início configuração para o print da tela
     const componentRef = useRef();
-  
+
     const reactToPrintContent = useCallback(() => {
-      return componentRef.current;
+        return componentRef.current;
     }, []);
-  
+
     const handlePrint = useReactToPrint({
-      content: reactToPrintContent,
-      documentTitle: "AwesomeFileName",
-      removeAfterPrint: true,
+        content: reactToPrintContent,
+        documentTitle: "Listagem - Todos os Membros",
+        removeAfterPrint: true,
     });
-    
-  
+
+
     //Fim da configuração do Print da tela
 
     async function handleSearch() {
@@ -84,18 +84,14 @@ export default function Users() {
 
     async function handleDelete(id, key) {
 
-
         try {
             await api.delete(`user/${id}/${key}`)
-                .then(response => {
-                    setIncidents(incidents.filter(incident => incident.id !== id))
-                })
+
+            setIncidents(incidents.filter(incident => incident.id !== id))
 
         } catch (error) {
             console.log(error)
         }
-
-        handleSearchAll();
 
     }
 
@@ -103,18 +99,20 @@ export default function Users() {
         setIsOpen(!isOpen)
     }
 
+
     async function openModal(id) {
         setIsOpen(!isOpen)
+        
+        
 
         try {
             await api.get(`user/id/${id}`)
                 .then(response => {
+
                     setNome(response.data.nome)
                     setCpfNew(response.data.cpf)
                     setRg(response.data.rg)
                     setFiliacao(response.data.filiacao)
-                    setData_nascimento(response.data.data_nascimento)
-                    setData_batismo(response.data.data_batismo)
                     setEmail(response.data.email)
                     setTelefone(response.data.telefone)
                     setEndereco(response.data.endereco)
@@ -126,19 +124,21 @@ export default function Users() {
                     setImagem(response.data.key)
                     setEstado_civil(response.data.estado_civil)
                     setId(response.data.id)
+                    setData_batismo(response.data.ano_batismo + '-' + response.data.mes_batismo + '-' + response.data.dia_batismo)
+                    setData_nascimento(response.data.ano_nascimento + '-' + response.data.mes_nascimento + '-' + response.data.dia_nascimento)
+
                 })
         } catch (error) {
             console.log(error.response)
         }
     }
 
-    function handlePrintCard(cpf){
+    function handlePrintCard(cpf) {
         localStorage.setItem('userCPF', cpf);
         window.open('/printCard')
     }
 
     async function handleEditUser(id, key) {
-        console.log(key, id)
 
         const data = {
             nome,
@@ -161,9 +161,6 @@ export default function Users() {
 
         try {
             await api.put(`user/${id}/${key}`, data)
-                .then(response => {
-                    console.log(response.data)
-                })
         } catch (error) {
             console.log(error.response)
         }
@@ -176,8 +173,7 @@ export default function Users() {
 
         <div className="container-users">
             <div style={{ display: 'none' }}>
-                <UsersPrint props={incidents} ref={componentRef} />
-                
+                <UsersPrint object={incidents} congregacao={'Todas as congregações'} ref={componentRef} />
             </div>
             <Modal
                 isOpen={isOpen}
@@ -401,12 +397,14 @@ export default function Users() {
                 </div>
             </Modal>
             <div className="box-users">
+
                 <form>
                     <InputMask mask='999.999.999-99' placeholder="CPF" type='text' value={cpf} onChange={e => setCpf(e.target.value)} />
                     <button type='button' onClick={handleSearch}>
                         <FaSearch size={20} color='#FFF' />
                     </button>
                 </form>
+
                 <div>
                     <button type='button' onClick={handleSearchAll} >Buscar Todos</button>
                 </div>
@@ -414,6 +412,8 @@ export default function Users() {
                     <button className="button-print" onClick={handlePrint} > <FaPrint size={30} color='#000' /> </button>
                     <a href="http://localhost:3000/" target='_blank' rel="noreferrer"><FaUserPlus size={30} color='#1B8D19' /></a>
                 </div>
+
+
             </div>
 
             <div className="box-body">
@@ -436,7 +436,7 @@ export default function Users() {
                                 <span>{incidents.email}</span>
                             </div>
                             <div>
-                                <button className="button-print" onClick={() => handlePrintCard(incidents.cpf) } ><FaPrint size={20} color='#000' /></button>
+                                <button className="button-print" onClick={() => handlePrintCard(incidents.cpf)} ><FaPrint size={20} color='#000' /></button>
                                 <button className="button-print" onClick={() => openModal(incidents.id)}><FaEdit size={20} color='#E78124' /></button>
                                 <button className="button-print" onClick={() => handleDelete(incidents.id, incidents.key)} ><FaTrash size={20} color='#E70404' /></button>
                             </div>

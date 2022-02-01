@@ -1,168 +1,152 @@
-import React from "react";
+import React, { useState, useRef, useCallback } from "react";
 import { FaChevronRight, FaTimes } from 'react-icons/fa'
 import InputMask from "react-input-mask";
+import { useReactToPrint } from 'react-to-print'
 
 import './style.css'
-
+import api from "../../services/api";
+import { Card } from "../Card";
 
 export default function Carteira() {
+    const [incidents, setIncidents] = useState([])
+    const [cpf, setCpf] = useState('')
+    const [incidentsPrint, setIncidentsPrint] = useState([])
+
+    const componentRef = useRef();
+    const componentRef1 = useRef();
+
+    const reactToPrintContent1 = useCallback(() => {
+        return componentRef1.current;
+    }, []);
+
+    const handlePrintSelected = useReactToPrint({
+        content: reactToPrintContent1,
+        documentTitle: "Carteiras - Usuários selecionados",
+        removeAfterPrint: true,
+    });
+    
+    const reactToPrintContent = useCallback(() => {
+        return componentRef.current;
+    }, []);
+
+    const handlePrintAll = useReactToPrint({
+        content: reactToPrintContent,
+        documentTitle: "Carteiras - Todos os usuários",
+        removeAfterPrint: true,
+        
+    });
+
+
+    async function handleIncidents() {
+
+        if (cpf === '') {
+            return
+        }
+
+        try {
+            await api.get(`user/${cpf}`)
+                .then(response => {
+
+                    if (incidents.length === 0) {
+                        if (response.data.length > 0) {
+                            incidents.push(response.data[0])
+                        }
+
+                    } else {
+
+                        if (response.data.length > 0) {
+                            const user = incidents.findIndex(i => i.cpf === cpf)
+
+                            if (user < 0) {
+                                incidents.push(response.data[0])
+                                return
+                            } else {
+                                return alert('Usuário já listado!')
+                            }
+                        } else {
+                            return alert('Usuário não localizado!')
+                        }
+                    }
+                })
+            setCpf('')
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    async function handleDeleteIncidents(id) {
+        incidents.splice(id, 0);
+
+        setIncidents(incidents.filter(incident => incident.id !== id))
+    }
+
+    async function handleCancel() {
+        setIncidents([]);
+
+    }
+
+    async function handleSearchAll() {
+        try {
+            api.get(`user`)
+                .then(response => {
+                    setIncidentsPrint(response.data)
+                    handlePrintAll()
+                    setIncidentsPrint([])
+                })
+        } catch (error) {
+            console.log(error)
+        }
+
+    }
+
+    async function handleSelected() {
+
+        if (incidents.length === 0) {
+            return alert('Por favor, fazer alguma seleção')
+        } else {
+            
+            handlePrintSelected();
+        }
+    }
+
     return (
-        // {/* <div>
-        //     
-        // </div> */}
-        <div className="container-card">
+        <div className="container-card-all">
+            <div style={{ display: 'none' }}>
+                <Card object={incidentsPrint} ref={componentRef} />
+                <Card object={incidents} ref={componentRef1} />
+            </div>
             <div className="header">
                 <div>
-                    <InputMask mask='999.999.999-99' placeholder="CPF"  />
-                    <button> <FaChevronRight size={20} color='#FFF' /> </button>
+                    <InputMask
+                        mask='999.999.999-99'
+                        placeholder="CPF"
+                        value={cpf}
+                        onChange={e => setCpf(e.target.value)}
+                    />
+                    <button type='button' onClick={handleIncidents} > <FaChevronRight size={20} color='#FFF' /> </button>
                 </div>
 
                 <div className="content-incidents">
                     <div className="incidents">
-                        <div>
-                            <span>
-                                Bruno
-                            </span>
-                            <button>
-                                <FaTimes size={12} color="#000" />
-                            </button>
-                        </div>
-                        <div>
-                            <span>
-                                Bruno
-                            </span>
-                            <button>
-                                <FaTimes size={12} color="#000" />
-                            </button>
-                        </div>
-                        <div>
-                            <span>
-                                Bruno
-                            </span>
-                            <button>
-                                <FaTimes size={12} color="#000" />
-                            </button>
-                        </div>
-                        <div>
-                            <span>
-                                Bruno
-                            </span>
-                            <button>
-                                <FaTimes size={12} color="#000" />
-                            </button>
-                        </div>
-                        <div>
-                            <span>
-                                Bruno
-                            </span>
-                            <button>
-                                <FaTimes size={12} color="#000" />
-                            </button>
-                        </div>
-                        <div>
-                            <span>
-                                Bruno
-                            </span>
-                            <button>
-                                <FaTimes size={12} color="#000" />
-                            </button>
-                        </div>
-                       
-                        
-                      
+                        {incidents.map(incidents => (
+                            <div key={incidents.id}>
+                                <span>
+                                    {incidents.nome.split(' ', 2).join(' ')}
+                                </span>
+                                <button type='button' onClick={() => handleDeleteIncidents(incidents.id)}>
+                                    <FaTimes size={12} color="#000" />
+                                </button>
+                            </div>
+                        ))}
+
                     </div>
                     <div id='buttons'>
-                        <button>Cancelar</button>
-                        <button>Imprimir Todas</button>
-                        <button>Imprimir Selecionadas</button>
+                        <button type='button' onClick={handleCancel} >Cancelar</button>
+                        <button type='button' onClick={handleSearchAll} >Imprimir Todas</button>
+                        <button type='button' onClick={handleSelected}  >Imprimir Selecionadas</button>
                     </div>
                 </div>
             </div>
-            {/* <div className="body">
-                <div className="content-card">
-                    <div className="header-card">
-                        <img src={user} alt="user" />
-
-                        <div>
-                            <h2>IGREJA EVANGÉLICA ASSEMBLEIA DE DEUS</h2>
-                            <h2>Templo Central - Campo de Amanari</h2>
-                            <span>Rua Raimundo Firmino, S/N - Amanari - Mpe - CE</span>
-                            <span>CNPJ: 03.326.552/0001-82</span>
-                            <span>adtccampodoamanari@gmail.com</span>
-                        </div>
-                    </div>
-
-                    <div className="body-card">
-                        <div className="body-card-name">
-                            <label htmlFor="name">Nome</label>
-                            <input id='name' disabled value=' joao BRuno rodrigues de sousa' />
-                        </div>
-                        <div>
-                            <label htmlFor="function">Função</label>
-                            <input id="function" disabled />
-                        </div>
-                        <div>
-                            <label htmlFor="churche">Congregação</label>
-                            <input id="churche" disabled />
-                        </div>
-
-                        <div>
-                            <div>
-                                <label htmlFor="batismo-print">Batismo</label>
-                                <input id="batismo-print" disabled />
-                            </div>
-                            <div>
-                                <label htmlFor="numero-membro">Nº Membro</label>
-                                <input id="numero-membro" disabled />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div className="content-card">
-                    <div className="body-card-2">
-                        <div>
-                            <label htmlFor="filiacao">Filiação</label>
-                            <input id="filiacao" disabled />
-                        </div>
-
-                        <div className="documents-card">
-                            <div>
-                                <label htmlFor="cpf-print">CPF</label>
-                                <input id="cpf-print" disabled />
-                            </div>
-                            <div>
-                                <label htmlFor="rg-print">RG</label>
-                                <input id="rg-print" disabled />
-                            </div>
-                        </div>
-                        <div className="documents-card-2">
-                            <div>
-                                <label htmlFor="estado-civil">Est. Civil</label>
-                                <input id="estado-civil" disabled />
-                            </div>
-                            <div>
-                                <label htmlFor="nascimento-print">Nasc.</label>
-                                <input id="nascimento-print" disabled />
-                            </div>
-                        </div>
-                        <div>
-                            <label htmlFor="assinatura">Assinatura</label>
-                            <input id="assinatura" disabled />
-                        </div>
-
-                        <div className="footer-card">
-                            <img src={user} alt="user" />
-                            <div>
-                                <input id="assinatura" disabled />
-                                <h2>Vicente Viana Barreto - Pastor Presidente</h2>
-                                <span>CGADB nº034673 - CONADEC nº 461</span>
-                            </div>
-                            <img src={user} alt="user" />
-                        </div>
-                    </div>
-                </div>
-            </div> */}
         </div>
     )
 }

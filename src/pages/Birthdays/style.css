@@ -1,6 +1,6 @@
 .container-birthdays {
     margin: 10% auto;
-    width: 70%;
+    width: 80%;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -22,20 +22,23 @@
     justify-content: center;
 }
 
-.head-birthdays div:first-child select {
+.head-birthdays div #month {
     width: 200px;
-    height: 30px;
+    height: 40px;
     border: none;
     border-top-left-radius: 6px;
     border-bottom-left-radius: 6px;
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
     padding-left: 10px;
     font-size: 18px;
+    margin: 0;
 }
 
 .head-birthdays div:first-child button {
     background-color: #337ED4;
     border: none;
-    height: 30px;
+    height: 40px;
     width: 40px;
     border-top-right-radius: 6px;
     border-bottom-right-radius: 6px;
@@ -47,8 +50,68 @@
     height: 50px;
     background-color: #FFF;
     margin-top: 10px;
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
     align-items: center;
-    justify-content: space-around;
+    justify-items: center;
     border-radius: 6px;
+    box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.15);
+}
+
+.card-birthdays img {
+    width: 40px;
+    border-radius: 50%;
+}
+
+.card-birthdays span {
+    font: 500 15px Roboto, sans-serif;
+}
+
+@media only screen and (max-width: 768px){
+    .container-birthdays {
+        margin: 80px auto;
+        width: 100%;
+    }
+    
+    .head-birthdays {
+        width: 90%;
+        margin: 0 auto 20px;
+        
+    }
+    
+    .head-birthdays div:first-child{
+        width: 80%;
+    }
+    
+    .head-birthdays div #month {
+        width: 80%;
+        height: 40px;
+        font-size: 18px;
+    }
+    
+    .head-birthdays div:first-child button {
+        height: 40px;
+        width: 20%;
+    }
+    
+    .card-birthdays {
+        width: 90%;
+        height: auto;
+        display: flex;
+        flex-direction: column;
+        padding: 3px;
+        margin: 5px auto 5px;
+    }
+    
+    .card-birthdays img {
+        width: 30px;
+    }
+    
+    .card-birthdays span {
+        font: 400 12px Roboto, sans-serif;
+    }
+
+    .card-birthdays a {
+        margin: 10px auto;
+    }
 }
