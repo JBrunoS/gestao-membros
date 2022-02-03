@@ -66,7 +66,7 @@ export default function Birthdays() {
             </div>
             {incidents.map(incidents => (
                 <div className="card-birthdays" key={incidents.id}>
-                    <img src={process.env.REACT_APP_API_URL + '/files/' + incidents.key} alt='imagem' />
+                    <img src={incidents.url} alt='imagem' />
                     <span>{incidents.nome.split(' ', 2).join(' ')}</span>
                     <span>{incidents.telefone}</span>
                     <span>{incidents.dia_nascimento + '/' + incidents.mes_nascimento + '/' + incidents.ano_nascimento}</span>

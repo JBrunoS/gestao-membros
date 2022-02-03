@@ -121,7 +121,7 @@ export default function Users() {
                     setCidade(response.data.cidade)
                     setCongregacao(response.data.congregacao)
                     setFuncao(response.data.funcao)
-                    setImagem(response.data.key)
+                    setImagem(response.data.url)
                     setEstado_civil(response.data.estado_civil)
                     setId(response.data.id)
                     setData_batismo(response.data.ano_batismo + '-' + response.data.mes_batismo + '-' + response.data.dia_batismo)
@@ -185,7 +185,7 @@ export default function Users() {
                     <form>
                         <div className="section-head">
                             <div className='container-box-preview'>
-                                <img src={process.env.REACT_APP_API_URL + '/files/' + imagem} alt='imagem' />
+                                <img src={imagem} alt='imagem' />
 
                                 <label htmlFor='file'  >Escolher foto</label>
                                 <input
@@ -410,7 +410,7 @@ export default function Users() {
                 </div>
                 <div>
                     <button className="button-print" onClick={handlePrint} > <FaPrint size={30} color='#000' /> </button>
-                    <a href="http://localhost:3000/" target='_blank' rel="noreferrer"><FaUserPlus size={30} color='#1B8D19' /></a>
+                    <a href="https://cadastro-cartao-membro.herokuapp.com/" target='_blank' rel="noreferrer"><FaUserPlus size={30} color='#1B8D19' /></a>
                 </div>
 
 
@@ -421,8 +421,8 @@ export default function Users() {
                 {
                     incidents.map(incidents => (
                         <div className="box-incidents" key={incidents.id}>
-                            <a href={process.env.REACT_APP_API_URL + '/files/' + incidents.key} target='_blank' rel="noreferrer">
-                                <img src={process.env.REACT_APP_API_URL + '/files/' + incidents.key} alt='imagem' />
+                            <a href={incidents.url} target='_blank' rel="noreferrer">
+                                <img src={incidents.url} alt='imagem' />
                             </a>
 
                             <div>

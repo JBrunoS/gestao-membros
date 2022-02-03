@@ -76,8 +76,8 @@ export default function Obreiros() {
             <div className='body-obreiros'>
                 {incidents.map(incidents => (
                     <div key={incidents.id}>
-                        <a href={process.env.REACT_APP_API_URL + '/files/' + incidents.key} target='_blank' rel="noreferrer">
-                            <img src={process.env.REACT_APP_API_URL + '/files/' + incidents.key} alt='imagem' />
+                        <a href={incidents.url} target='_blank' rel="noreferrer">
+                            <img src={incidents.url} alt='imagem' />
                         </a>
                         
                         <span>{incidents.nome}</span>

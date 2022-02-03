@@ -68,8 +68,8 @@ export default function Churches() {
                             {incidents.map(incidents => (
                                 <ul key={incidents.id}>
                                     <li>
-                                        <a href={process.env.REACT_APP_API_URL + '/files/' + incidents.key} target='_blank' rel="noreferrer">
-                                            <img src={process.env.REACT_APP_API_URL + '/files/' + incidents.key} alt='imagem' />
+                                        <a href={incidents.url} target='_blank' rel="noreferrer">
+                                            <img src={incidents.url} alt='imagem' />
                                         </a>
                                         <span>{incidents.nome + ' - ' + incidents.telefone}</span>
                                     </li>

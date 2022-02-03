@@ -11,6 +11,7 @@ import PrintCard from "./pages/PrintCard";
 import Obreiros from "./pages/Obreiros";
 import Reports from "./pages/Reports";
 
+
 export default function Rotas(){
     return(
         <BrowserRouter>

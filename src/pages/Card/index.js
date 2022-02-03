@@ -15,7 +15,7 @@ export const Card = forwardRef(( props , ref) => {
                 <div className="body" key={incidents.id} >
                     <div className="content-card">
                         <div className="header-card">
-                            <img src={process.env.REACT_APP_API_URL + '/files/' + incidents.key} alt='imagem' />
+                            <img src={incidents.url} alt='imagem' />
 
                             <div>
                                 <h2>IGREJA EVANGÉLICA ASSEMBLEIA DE DEUS</h2>
