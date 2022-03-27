@@ -1,0 +1,147 @@
+.print-mudanca {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    
+}
+
+.header-mudanca {
+    width: 90%;
+    height: 15%;
+    border: 1px solid #000;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    margin-top: 5%;
+}
+
+.header-mudanca div:first-child {
+    width: 33%;
+    height: auto;
+    display: flex;
+    justify-content: center;
+}
+
+.header-mudanca div:first-child img {
+    width: auto;
+    height: 120px;
+}
+
+.header-mudanca div:last-child {
+    width: 70%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.body-mudanca {
+    width: 90%;
+    height: 60%;
+    border: 1px solid #000;
+    border-radius: 6px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    margin-top: 5px;
+}
+
+.body-mudanca h1 {
+    margin-top: 20px;
+}
+
+.body-mudanca .title-mudanca {
+    width: 100%;
+    align-self: center;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.body-mudanca .igreja-mudanca {
+    width: 63%;
+    height: 20px;
+    border-bottom: 1px solid #000000;
+}
+.body-mudanca .igreja-mudanca-second {
+    width: 100%;
+    height: 20px;
+    border-bottom: 1px solid #000000;
+    align-self: center;
+    margin-bottom: 20px;
+}
+
+.body-mudanca div {
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.body-mudanca div div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+    margin-top: 2px;
+}
+
+.body-mudanca div p {
+    font: 400 22px Roboto, sans-serif;
+    margin: 5px 0px 5px;
+}
+
+.body-mudanca div span {
+    font: 600 22px Roboto, sans-serif;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.body-mudanca div .data-mudanca {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+    margin-top: 30px;
+}
+
+.body-mudanca div .assinatura-mudanca {
+    width: 70%;
+    
+    border-top: 1px solid #000000;
+    margin-top: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-self: center;
+}
+
+.footer-mudanca {
+    width: 90%;
+    height: 15%;
+    border: 1px solid #000;
+    border-radius: 6px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 5px;
+    padding: 10px;
+}
+
+.footer-mudanca p {
+    font: 400 22px Roboto, sans-serif;
+    
+}
