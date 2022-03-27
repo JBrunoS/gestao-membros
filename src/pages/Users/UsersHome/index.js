@@ -1,5 +1,5 @@
 import React, { useState, useRef, useCallback } from "react";
-import { FaSearch, FaPrint, FaUserPlus, FaEdit, FaTrash, FaTimes } from 'react-icons/fa'
+import { FaSearch, FaPrint, FaUserPlus, FaEdit, FaTrash, FaTimes, FaEnvelopeOpenText, FaEnvelope  } from 'react-icons/fa'
 import InputMask from 'react-input-mask'
 import Modal from 'react-modal'
 import { useReactToPrint } from 'react-to-print'
@@ -10,12 +10,15 @@ import './style.css'
 import api from '../../../services/api'
 
 import UsersPrint from "../UsersPrint";
+import MudancaPrint from '../../Cartas/Mudanca'
 
+Modal.setAppElement("#root");
 
 export default function Users() {
 
     const [cpf, setCpf] = useState('')
     const [incidents, setIncidents] = useState([])
+    const [incidentToPrint, setIncidentToPrint] = useState([])
 
     //modal constantes
     const [nome, setNome] = useState('');
@@ -35,12 +38,37 @@ export default function Users() {
     const [funcao, setFuncao] = useState('');
     const [estado_civil, setEstado_civil] = useState('')
     const [imagem, setImagem] = useState('')
+    const [newImage, setNewImage] = useState('')
+    const [key, setKey] = useState('')
     const [id, setId] = useState('')
+    const [status, setStatus] = useState('')
+    const [type, setType] = useState('')
 
     const [isOpen, setIsOpen] = useState(false);
 
     //Início configuração para o print da tela
     const componentRef = useRef();
+    const componentMudanca = useRef();
+
+    const reactToPrintMudanca = useCallback(() => {
+        return componentMudanca.current;
+    },[])
+
+    const handlePrintMudanca = useReactToPrint({
+        content: reactToPrintMudanca,
+        documentTitle: "Carta de Mudança",
+        removeAfterPrint: true,
+    });
+    
+    const reactToPrintRecomendacao = useCallback(() => {
+        return componentMudanca.current;
+    },[])
+
+    const handlePrintRecomendacao = useReactToPrint({
+        content: reactToPrintRecomendacao,
+        documentTitle: "Carta de Recomendação",
+        removeAfterPrint: true,
+    });
 
     const reactToPrintContent = useCallback(() => {
         return componentRef.current;
@@ -82,6 +110,28 @@ export default function Users() {
         }
     }
 
+    async function handleSearchActives() {
+        try {
+            api.get('user/active')
+                .then(response => {
+                    setIncidents(response.data)
+                })
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    async function handleSearchInactives() {
+        try {
+            api.get('user/inactive')
+                .then(response => {
+                    setIncidents(response.data)
+                })
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     async function handleDelete(id, key) {
 
         try {
@@ -96,14 +146,49 @@ export default function Users() {
     }
 
     function closeModal() {
+        setNewImage('');
         setIsOpen(!isOpen)
+
+    }
+
+    async function PrintMudanca(id){
+        setType('Mudança');
+        try {
+            await api.get(`user/id/${id}`)
+                .then(response => {
+                    setIncidentToPrint(response.data)
+                })
+
+            
+        } catch (error) {
+            alert(error)
+        }
+
+        handlePrintMudanca();
+        setType('');
+    }
+    async function PrintRecomendacao(id){
+        setType('Recomendação')
+        try {
+            await api.get(`user/id/${id}`)
+                .then(response => {
+                    setIncidentToPrint(response.data)
+                })
+
+            
+        } catch (error) {
+            alert(error)
+        }
+
+        handlePrintRecomendacao();
+        setType('');
     }
 
 
     async function openModal(id) {
         setIsOpen(!isOpen)
-        
-        
+
+
 
         try {
             await api.get(`user/id/${id}`)
@@ -122,10 +207,12 @@ export default function Users() {
                     setCongregacao(response.data.congregacao)
                     setFuncao(response.data.funcao)
                     setImagem(response.data.url)
+                    setKey(response.data.key)
                     setEstado_civil(response.data.estado_civil)
                     setId(response.data.id)
                     setData_batismo(response.data.ano_batismo + '-' + response.data.mes_batismo + '-' + response.data.dia_batismo)
                     setData_nascimento(response.data.ano_nascimento + '-' + response.data.mes_nascimento + '-' + response.data.dia_nascimento)
+                    setStatus((response.data.status).toString())
 
                 })
         } catch (error) {
@@ -139,7 +226,10 @@ export default function Users() {
     }
 
     async function handleEditUser(id, key) {
+        const dataImage = new FormData();
 
+        dataImage.append('file', newImage)
+        
         const data = {
             nome,
             cpfNew,
@@ -157,16 +247,44 @@ export default function Users() {
             congregacao,
             funcao,
             estado_civil,
+            status: (status === 'true' ? true : false)
         }
 
-        try {
-            await api.put(`user/${id}/${key}`, data)
-        } catch (error) {
-            console.log(error.response)
+        if (newImage) {
+
+            if (newImage.type !== 'image/jpeg' && newImage.type !== 'image/jpg' && newImage.type !== 'image/png') {
+                alert("Formato de foto não permitido. Formatos aceitos: image.jpeg, image.jpg, image.png");
+                return;
+            }
+
+            if (newImage.size > (2 * 1024 * 1024)) {
+                alert("Foto maior que 2 megas")
+                return;
+            } else {
+                
+                try {
+                    await api.put(`user/${id}/${key}`, data)
+                    await api.delete(`delete/image/${id}/${key}`)
+                    await api.put(`update/image/${id}`, dataImage)
+
+                } catch (error) {
+                    alert(error)
+                }
+            }
+        } 
+        
+        if(!newImage){
+            
+            
+            try {
+                await api.put(`user/${id}/${key}`, data)
+            } catch (error) {
+                alert(error)
+            }
         }
 
-        closeModal();
-        handleSearchAll();
+        closeModal()
+        setIncidents([])
     }
 
     return (
@@ -174,6 +292,7 @@ export default function Users() {
         <div className="container-users">
             <div style={{ display: 'none' }}>
                 <UsersPrint object={incidents} congregacao={'Todas as congregações'} ref={componentRef} />
+                <MudancaPrint object={incidentToPrint} titulo={type} ref={componentMudanca} />
             </div>
             <Modal
                 isOpen={isOpen}
@@ -185,16 +304,15 @@ export default function Users() {
                     <form>
                         <div className="section-head">
                             <div className='container-box-preview'>
-                                <img src={imagem} alt='imagem' />
+                                {!newImage ? <img src={imagem} alt='imagem' /> : <img src={URL.createObjectURL(newImage)} alt='imagem' />}
 
-                                <label htmlFor='file'  >Escolher foto</label>
+                                <label htmlFor='file'  >Alterar foto</label>
                                 <input
-                                    disabled
                                     type='file'
                                     id='file'
                                     name='file'
                                     accept='image/*'
-                                    onChange={e => setImagem(e.target.files[0])}
+                                    onChange={e => setNewImage(e.target.files[0])}
                                     required
                                 />
                             </div>
@@ -376,12 +494,23 @@ export default function Users() {
                                         required
                                     >
                                         <option value=''></option>
-                                        <option value='Congregado'>Congregado</option>
                                         <option value='Membro'>Membro</option>
                                         <option value='Auxiliar'>Auxiliar</option>
                                         <option value='Diácono'>Diácono</option>
                                         <option value='Presbítero'>Presbítero</option>
+                                        <option value='Supervisor de Congregação'>Supervisor de Congregação</option>
+                                        <option value='Evangelista'>Evangelista</option>
                                         <option value='Pastor'>Pastor</option>
+                                    </select>
+
+                                    <select
+                                        id="status"
+                                        value={status}
+                                        onChange={e => setStatus(e.target.value)}
+                                        required
+                                    >
+                                        <option value={true}>Ativo</option>
+                                        <option value={false}>Inativo</option>
                                     </select>
                                 </div>
                             </div>
@@ -389,7 +518,7 @@ export default function Users() {
 
                         <div className="buttons">
                             <button type='button' onClick={closeModal} >cancelar</button>
-                            <button type='button' onClick={() => handleEditUser(id, imagem)} >Salvar</button>
+                            <button type='button' onClick={() => handleEditUser(id, key)} >Salvar</button>
                             <button type='button' onClick={closeModal}><FaTimes size={20} color='#c4c4c4' /></button>
                         </div>
 
@@ -405,8 +534,10 @@ export default function Users() {
                     </button>
                 </form>
 
-                <div>
+                <div className="box-users-buttons">
                     <button type='button' onClick={handleSearchAll} >Buscar Todos</button>
+                    <button type='button' onClick={handleSearchActives} >Buscar Ativos</button>
+                    <button type='button' onClick={handleSearchInactives} >Buscar Inativos</button>
                 </div>
                 <div>
                     <button className="button-print" onClick={handlePrint} > <FaPrint size={30} color='#000' /> </button>
@@ -436,6 +567,8 @@ export default function Users() {
                                 <span>{incidents.email}</span>
                             </div>
                             <div>
+                                <button className="button-print" onClick={() => PrintMudanca(incidents.id)} >CM<FaEnvelope size={20} color='#337ED4'/> </button>
+                                <button className="button-print" onClick={() => PrintRecomendacao(incidents.id)} >CR <FaEnvelopeOpenText size={20} color='#1b8d19'/></button>
                                 <button className="button-print" onClick={() => handlePrintCard(incidents.cpf)} ><FaPrint size={20} color='#000' /></button>
                                 <button className="button-print" onClick={() => openModal(incidents.id)}><FaEdit size={20} color='#E78124' /></button>
                                 <button className="button-print" onClick={() => handleDelete(incidents.id, incidents.key)} ><FaTrash size={20} color='#E70404' /></button>

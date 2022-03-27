@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import Modal from 'react-modal'
 
 import './style.css'
-import LogoAD from '../../assets/logo.png'
+import LogoAD from '../../assets/logo-ad.png'
 
 export default function Header() {
     const [isOpen, setIsOpen] = useState(false);
