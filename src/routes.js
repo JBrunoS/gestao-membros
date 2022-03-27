@@ -10,6 +10,7 @@ import Carteira from "./pages/Carteira";
 import PrintCard from "./pages/PrintCard";
 import Obreiros from "./pages/Obreiros";
 import Reports from "./pages/Reports";
+import Login from "./pages/Login";
 
 
 export default function Rotas(){
@@ -25,6 +26,7 @@ export default function Rotas(){
                 <Route path='/printCard' exact element={<PrintCard />} />
                 <Route path='/obreiros' exact element={<Obreiros />} />
                 <Route path='/reports' exact element={<Reports />} />
+                <Route path='/login' exact element={<Login />} />
                 
             </Routes>
         </BrowserRouter>

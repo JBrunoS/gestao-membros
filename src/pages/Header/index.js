@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FaPowerOff, FaBars, FaTimes } from 'react-icons/fa'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import Modal from 'react-modal'
 
 import './style.css'
@@ -14,6 +14,10 @@ export default function Header() {
     const [class4, setClas4] = useState('links')
     const [class5, setClas5] = useState('links')
     const [class6, setClas6] = useState('links')
+
+    const user_logged = localStorage.getItem('user_logged')
+
+    const navigate = useNavigate()
 
     function usersSelected(){
         setClas1('link-selected')
@@ -80,6 +84,20 @@ export default function Header() {
     function openModal() {
         setIsOpen(!isOpen)
     }
+
+    function loggOff(){
+        unselectedAll();
+        localStorage.clear();
+        navigate('/login')
+    }
+
+    useEffect(() => {
+        if (!user_logged) {
+            
+            navigate('/login')
+        }
+    },[])
+
     return (
         <div className='container'>
             <Modal
@@ -101,7 +119,7 @@ export default function Header() {
             </Modal>
 
             <div className="header-image">
-                <Link onClick={unselectedAll} to='/'>
+                <Link onClick={loggOff} to='/'>
                     <img src={LogoAD} alt='Logo' width={60} />
                 </Link>
             </div>
@@ -117,9 +135,9 @@ export default function Header() {
             </div>
 
             <div className="header-off">
-                <Link onClick={unselectedAll} to='/'>
+                <button onClick={loggOff}>
                     <FaPowerOff size={30} color='#FFF' />
-                </Link>
+                </button>
             </div>
 
             <div className="header-menu">
