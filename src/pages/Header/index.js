@@ -119,7 +119,7 @@ export default function Header() {
             </Modal>
 
             <div className="header-image">
-                <Link onClick={loggOff} to='/'>
+                <Link onClick={unselectedAll} to='/'>
                     <img src={LogoAD} alt='Logo' width={60} />
                 </Link>
             </div>
