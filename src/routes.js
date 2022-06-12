@@ -11,7 +11,8 @@ import PrintCard from "./pages/PrintCard";
 import Obreiros from "./pages/Obreiros";
 import Reports from "./pages/Reports";
 import Login from "./pages/Login";
-import NaoCadastrados from "./pages/CartasNãoCadastrados";
+import NaoCadastrados from "./pages/CartasNaoCadastrados";
+
 
 
 export default function Rotas(){
