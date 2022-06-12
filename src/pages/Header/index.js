@@ -14,6 +14,8 @@ export default function Header() {
     const [class4, setClas4] = useState('links')
     const [class5, setClas5] = useState('links')
     const [class6, setClas6] = useState('links')
+    const [class7, setClas7] = useState('links')
+    const [class8, setClas8] = useState('links')
 
     const user_logged = localStorage.getItem('user_logged')
 
@@ -26,6 +28,8 @@ export default function Header() {
         setClas4('links')
         setClas5('links')
         setClas6('links')
+        setClas7('links')
+        setClas8('links')
     }
     function igrejaSelected(){
         setClas1('links')
@@ -34,6 +38,8 @@ export default function Header() {
         setClas4('links')
         setClas5('links')
         setClas6('links')
+        setClas7('links')
+        setClas8('links')
     }
     function obreiroSelected(){
         setClas1('links')
@@ -42,6 +48,8 @@ export default function Header() {
         setClas4('links')
         setClas5('links')
         setClas6('links')
+        setClas7('links')
+        setClas8('links')
     }
     function aniversarioSelected(){
         setClas1('links')
@@ -50,6 +58,8 @@ export default function Header() {
         setClas4('link-selected')
         setClas5('links')
         setClas6('links')
+        setClas7('links')
+        setClas8('links')
     }
     function carteiraSelected(){
         setClas1('links')
@@ -58,6 +68,28 @@ export default function Header() {
         setClas4('links')
         setClas5('link-selected')
         setClas6('links')
+        setClas7('links')
+        setClas8('links')
+    }
+    function certificadoSelected(){
+        setClas1('links')
+        setClas2('links')
+        setClas3('links')
+        setClas4('links')
+        setClas5('links')
+        setClas6('links')
+        setClas7('link-selected')
+        setClas8('links')
+    }
+    function cartasSelected(){
+        setClas1('links')
+        setClas2('links')
+        setClas3('links')
+        setClas4('links')
+        setClas5('links')
+        setClas6('links')
+        setClas7('links')
+        setClas8('link-selected')
     }
     function reportsSelected(){
         setClas1('links')
@@ -66,6 +98,8 @@ export default function Header() {
         setClas4('links')
         setClas5('links')
         setClas6('link-selected')
+        setClas7('links')
+        setClas8('links')
     }
 
     function unselectedAll(){
@@ -75,6 +109,8 @@ export default function Header() {
         setClas4('links')
         setClas5('links')
         setClas6('links')
+        setClas7('links')
+        setClas8('links')
     }
 
     function closeModal() {
@@ -113,6 +149,8 @@ export default function Header() {
                     <Link onClick={closeModal} to='/obreiros'  >Obreiros</Link>
                     <Link onClick={closeModal} to='/birthdays' >Aniversariantes</Link>
                     <Link onClick={closeModal} to='/cards' >Gerar Carteira</Link>
+                    <Link onClick={closeModal} to='/cards' >Certificados</Link>
+                    <Link onClick={closeModal} to='/cards' >Cartas</Link>
                     <Link onClick={closeModal} to='/reports' >Relatórios</Link>
                 </div>
 
@@ -131,6 +169,8 @@ export default function Header() {
                 <Link onClick={obreiroSelected} className={class3} to='/obreiros'  >Obreiros</Link>
                 <Link onClick={aniversarioSelected} className={class4} to='/birthdays' >Aniversariantes</Link>
                 <Link onClick={carteiraSelected} className={class5} to='/cards' >Gerar Carteira</Link>
+                <Link onClick={certificadoSelected} className={class7} to='/cards' >Certificados</Link>
+                <Link onClick={cartasSelected} className={class8} to='/novasCartas' >Cartas</Link>
                 <Link onClick={reportsSelected} className={class6} to='/reports' >Relatórios</Link>
             </div>
 

@@ -11,6 +11,7 @@ import PrintCard from "./pages/PrintCard";
 import Obreiros from "./pages/Obreiros";
 import Reports from "./pages/Reports";
 import Login from "./pages/Login";
+import NaoCadastrados from "./pages/CartasNãoCadastrados";
 
 
 export default function Rotas(){
@@ -27,6 +28,7 @@ export default function Rotas(){
                 <Route path='/obreiros' exact element={<Obreiros />} />
                 <Route path='/reports' exact element={<Reports />} />
                 <Route path='/login' exact element={<Login />} />
+                <Route path='/novasCartas' exact element={<NaoCadastrados />} />
                 
             </Routes>
         </BrowserRouter>

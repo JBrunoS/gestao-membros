@@ -1,0 +1,60 @@
+.container-novas-cartas{
+    margin: 10% auto;
+    width: 80%;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    border-radius: 10px;
+}
+
+.container-novas-cartas form{
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+.container-novas-cartas form input, select{
+    width: 100%;
+    height: 40px;
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0px 1px 6px rgba(0,0,0,0.3);
+    padding-left: 20px;
+    padding-right: 10px;
+    font-size: 18px;
+    margin: 5px;
+    
+}
+
+.container-novas-cartas form button{
+    width: 100%;
+    margin: 25px 5px 5px 5px;
+    height: 40px;
+    border: none;
+    border-radius: 10px;
+    background-color: #337ed4;
+    color: #FFF;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.container-novas-cartas form div{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    
+    justify-content: space-between;
+}
+
+.container-novas-cartas form div div {
+    width: 30%;
+    flex-direction: column;
+}
+
+.container-novas-cartas form .datas div{
+    width: 48%;
+}
